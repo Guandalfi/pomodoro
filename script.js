@@ -1,5 +1,5 @@
 const html = document.querySelector('html')
-const mostrador = document.querySelector('.app_display')
+const contador = document.querySelector('.app__display')
 const focoBt = document.querySelector('.app__card-button--foco')
 const curtoBt = document.querySelector('.app__card-button--curto')
 const longoBt = document.querySelector('.app__card-button--longo')
@@ -19,6 +19,21 @@ const soundPlay = new Audio('/sons/play.wav')
 
 let tempoDecorridoEmSegundos = 5
 let intervaloId = null
+
+
+function atualizarContador() {
+    contador.innerHTML = tempoDecorridoEmSegundos;
+    if (tempoDecorridoEmSegundos > 0) {
+        tempoDecorridoEmSegundos--;
+    }else{
+        zerar()
+        alert('Tempo Finalizado')
+        
+        return
+    }
+    
+}
+
 
 musicaFocoInput.addEventListener('change', () => {
     if(musica.paused) {
@@ -69,31 +84,18 @@ function alterarContexto(contexto) {
     }
 }
 
-const contagemRegressiva = () => {
-    if (tempoDecorridoEmSegundos <= 0) {
-        //soundBeep.play()
-        iniciarOuPausarPausarBt.innerHTML = "Começar"
-        alert('Tempo Finalizado')
-        zerar()
-        
-        return
-
-    }
-    tempoDecorridoEmSegundos -= 1;
-    console.log(`Temporizador: ${tempoDecorridoEmSegundos}`)
-}
 
 startPauseBt.addEventListener('click', iniciarOuPausar)
 
 function iniciarOuPausar () {
     if(intervaloId) {
         soundPause.play()
-        
+        iniciarOuPausarPausarBt.innerHTML = "Começar"
         zerar()
         return
     }
     soundPlay.play()
-    intervaloId = setInterval(contagemRegressiva, 1000)
+    intervaloId = setInterval(atualizarContador, 1000)
     iniciarOuPausarPausarBt.innerHTML = "Pausar"
 
 }
