@@ -19,6 +19,7 @@ const soundPlay = new Audio('/sons/play.wav')
 
 let tempoDecorridoEmSegundos = 5
 let intervaloId = null
+let varteste = null
 
 
 function atualizarContador() {
